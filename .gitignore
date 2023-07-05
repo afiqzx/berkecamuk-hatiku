@@ -31,6 +31,12 @@
 *.out
 *.app
 
+# CMake stuffs
+.cmake
+.cache
+compile_commands.json
+
+
 # Others
 CMakeCache.txt
 CMakeFiles
