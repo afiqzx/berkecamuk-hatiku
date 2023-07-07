@@ -1,6 +1,5 @@
 #include "Vec2.hpp"
 #include <cmath>
-#include <functional>
 #include <math.h>
 
 Vec2::Vec2() : m_x(0.0f), m_y(0.0f) {}
@@ -78,4 +77,82 @@ float Vec2::Cross(const Vec2 &v) const {
     ret = m_x * v.m_y - m_y * v.m_x;
 
     return ret;
+}
+
+Vec2 &Vec2::operator=(const Vec2 &v) {
+    m_x = v.m_x;
+    m_y = v.m_y;
+
+    return *this;
+}
+
+bool Vec2::operator==(const Vec2 &v) const {
+    if (m_x == v.m_x && m_y == v.m_y) {
+        return true;
+    }
+
+    return false;
+}
+
+bool Vec2::operator!=(const Vec2 &v) const { return !(*this == v); }
+
+Vec2 Vec2::operator+(const Vec2 &v) const {
+    Vec2 ret(m_x, m_y);
+
+    ret.Add(v);
+    return ret;
+}
+
+Vec2 Vec2::operator-(const Vec2 &v) const {
+    Vec2 ret(m_x, m_y);
+
+    ret.Sub(v);
+    return ret;
+}
+
+Vec2 Vec2::operator*(const Vec2 &v) const {
+    Vec2 ret(m_x, m_y);
+    ret.m_x *= v.m_x;
+    ret.m_y *= v.m_y;
+
+    return ret;
+}
+
+Vec2 Vec2::operator/(const Vec2 &v) const {
+    Vec2 ret(m_x, m_y);
+    ret.m_x /= v.m_x;
+    ret.m_y /= v.m_y;
+
+    return ret;
+}
+
+Vec2 Vec2::operator-() {
+    Vec2 ret(m_x, m_y);
+    ret.m_x *= -1;
+    ret.m_y *= -1;
+
+    return ret;
+}
+
+Vec2 &Vec2::operator+=(const Vec2 &v) {
+    Add(v);
+
+    return *this;
+}
+
+Vec2 &Vec2::operator-=(const Vec2 &v) {
+    Sub(v);
+    return *this;
+}
+
+Vec2 &Vec2::operator*=(const float n) {
+    m_x *= n;
+    m_y *= n;
+    return *this;
+}
+
+Vec2 &Vec2::operator/=(const float n) {
+    m_x /= n;
+    m_y /= n;
+    return *this;
 }
