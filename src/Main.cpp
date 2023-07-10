@@ -1,7 +1,17 @@
-#include "Vec2.hpp"
+#include "Application.hpp"
 
 int main(int argc, const char ** cpargv) {
-    Vec2 test(0.0f, 0.0f);
+    Application app;
+    
+    app.Setup();
+
+    while(app.IsRunning()) {
+        app.Input();
+        app.Update();
+        app.Render();
+    }
+
+    app.Destroy();
 
     return 0;
 }
