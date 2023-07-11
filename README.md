@@ -11,7 +11,7 @@
  make
  ```
 - Run
-  ```bash
-  make run
-  ```
+ ```bash
+ make run
+ ```
   
