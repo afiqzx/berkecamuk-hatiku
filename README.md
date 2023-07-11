@@ -10,7 +10,6 @@
  cmake build ./
  make
  ```
-
 - Run
   ```bash
   make run
