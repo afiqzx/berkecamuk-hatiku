@@ -11,4 +11,8 @@
  make
  ```
 
-
+- Run
+  ```bash
+  make run
+  ```
+  
