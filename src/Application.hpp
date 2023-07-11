@@ -1,5 +1,4 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#pragma once
 
 #include "./Graphics.hpp"
 
@@ -18,4 +17,3 @@ class Application {
         void Destroy();
 };
 
-#endif
