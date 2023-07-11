@@ -7,3 +7,9 @@ project(berkecamuk-hatiku VERSION 0.1)
 add_subdirectory(src/Physics)
 add_subdirectory(src)
 
+add_custom_target(run
+    COMMAND src/Game
+    DEPENDS Game
+    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
+)
+
