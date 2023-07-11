@@ -1,3 +1,3 @@
 
-add_library(Physics Vec2.cpp)
+add_library(Physics Vec2.cpp Particle.cpp)
 

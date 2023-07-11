@@ -1,10 +1,13 @@
 #pragma once
 
 #include "./Graphics.hpp"
+#include "Particle.hpp"
 
 class Application {
     private:
         bool running = false;
+        Particle * m_particle;
+
 
     public:
         Application() = default;
