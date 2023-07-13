@@ -41,6 +41,10 @@ void Application::Input() {
 void Application::Update() {
     // Get the difference of time between each frame
     float deltaTime = (SDL_GetTicks() - m_timePreviousFrame) / 1000.0f;
+    // SANITIZE! SANITIZE!
+    if (deltaTime > 0.016) {
+        deltaTime = 0.016;
+    }
 
     m_timePreviousFrame = SDL_GetTicks();
 
