@@ -1,4 +1,5 @@
 #include "Application.hpp"
+#include <SDL_timer.h>
 
 bool Application::IsRunning() {
     return running;
@@ -9,8 +10,11 @@ bool Application::IsRunning() {
 ///////////////////////////////////////////////////////////////////////////////
 void Application::Setup() {
     running = Graphics::OpenWindow();
+    
+    m_timePreviousFrame = 0;
 
     m_particle = new Particle(50.0, 100.0, 10.0);
+    m_particle->m_velocity = Vec2(100.0, 30.0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,8 +39,13 @@ void Application::Input() {
 // Update function (called several times per second to update objects)
 ///////////////////////////////////////////////////////////////////////////////
 void Application::Update() {
+    // Get the difference of time between each frame
+    float deltaTime = (SDL_GetTicks() - m_timePreviousFrame) / 1000.0f;
+
+    m_timePreviousFrame = SDL_GetTicks();
+
     if (m_particle != nullptr) {
-        m_particle->m_position += Vec2(1.0, 1.0);
+        m_particle->m_position += m_particle->m_velocity * deltaTime;
     }
 }
 

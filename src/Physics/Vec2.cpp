@@ -103,6 +103,14 @@ Vec2 Vec2::operator+(const Vec2 &v) const {
     return ret;
 }
 
+Vec2 Vec2::operator*(const float n) const {
+    Vec2 ret(m_x, m_y);
+
+    ret.m_x *= n;
+    ret.m_y *= n;
+    return ret;
+}
+
 Vec2 Vec2::operator-(const Vec2 &v) const {
     Vec2 ret(m_x, m_y);
 
