@@ -13,7 +13,8 @@ if (APPLE)
     link_directories(
         "${HOMEBREW_PREFIX}/lib"
         )
-    message("system: ${CMAKE_PREFIX_PATH}")
+
+    set(CMAKE_CXX_STANDARD 17)
 endif()
 
 project(berkecamuk-hatiku VERSION 0.2)
