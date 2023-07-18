@@ -2,7 +2,21 @@ cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
 
-project(berkecamuk-hatiku VERSION 0.1)
+set(HOMEBREW_PREFIX "/opt/homebrew"
+    CACHE PATH "Path to homebrew installation")
+
+if (APPLE)
+    include_directories(
+        "${HOMEBREW_PREFIX}/include"
+        )
+
+    link_directories(
+        "${HOMEBREW_PREFIX}/lib"
+        )
+    message("system: ${CMAKE_PREFIX_PATH}")
+endif()
+
+project(berkecamuk-hatiku VERSION 0.2)
 
 add_subdirectory(src/Physics)
 add_subdirectory(src)
