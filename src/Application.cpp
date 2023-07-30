@@ -1,5 +1,11 @@
 #include "Application.hpp"
+#include "Constants.h"
+#include "Graphics.hpp"
 #include <SDL_timer.h>
+#include <algorithm>
+#include <ostream>
+
+#include <iostream>
 
 bool Application::IsRunning() {
     return running;
@@ -14,7 +20,8 @@ void Application::Setup() {
     m_timePreviousFrame = 0;
 
     m_particle = new Particle(50.0, 100.0, 10.0);
-    m_particle->m_velocity = Vec2(100.0, 30.0);
+    m_particle->m_velocity = Vec2(50.0, 55.0);
+    m_particle->m_acceleration = Vec2(0.0, 9.8 * PIXELS_PER_METER);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,7 +56,25 @@ void Application::Update() {
     m_timePreviousFrame = SDL_GetTicks();
 
     if (m_particle != nullptr) {
+        m_particle->m_velocity += m_particle->m_acceleration * deltaTime;
         m_particle->m_position += m_particle->m_velocity * deltaTime;
+
+        if (m_particle->m_position.m_x - m_particle->m_radius <= 0) {
+            m_particle->m_position.m_x = m_particle->m_radius;
+            m_particle->m_velocity.m_x *= -1.0;
+        }
+        else if (m_particle->m_position.m_x + m_particle->m_radius >= Graphics::Width()) {
+            m_particle->m_position.m_x = Graphics::Width() - m_particle->m_radius;
+            m_particle-> m_velocity.m_x *= -1.0;
+        }
+        else if (m_particle->m_position.m_y - m_particle->m_radius <= 0) {
+            m_particle->m_position.m_y = m_particle->m_radius;
+            m_particle->m_velocity.m_y *= -1.0;
+        }
+        else if (m_particle->m_position.m_y + m_particle->m_radius >= Graphics::Height()) {
+            m_particle->m_position.m_y = Graphics::Height() - m_particle->m_radius;
+            m_particle->m_velocity.m_y *= -1.0;
+        }
     }
 }
 

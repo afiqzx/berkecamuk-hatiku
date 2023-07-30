@@ -8,6 +8,7 @@ struct Particle {
     Vec2 m_acceleration;
 
     float m_mass;
+    float m_radius;
 
     Particle(float x, float y, float mass);
     ~Particle() = default;
