@@ -164,3 +164,11 @@ Vec2 &Vec2::operator/=(const float n) {
     m_y /= n;
     return *this;
 }
+
+Vec2 Vec2::operator/(const float m) const {
+    Vec2 ret(m_x, m_y);
+    ret.m_x /= m;
+    ret.m_y /= m;
+
+    return ret;
+}

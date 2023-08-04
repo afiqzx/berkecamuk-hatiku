@@ -1,15 +1,15 @@
 #pragma once
 
+#include "Physics/Vec2.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
-#include "Physics/Vec2.hpp"
 #include <vector>
 
 struct Graphics {
     static int windowWidth;
     static int windowHeight;
-    static SDL_Window* window;
-    static SDL_Renderer* renderer;
+    static SDL_Window *window;
+    static SDL_Renderer *renderer;
 
     static int Width();
     static int Height();
@@ -22,8 +22,10 @@ struct Graphics {
     static void DrawFillCircle(int x, int y, int radius, Uint32 color);
     static void DrawRect(int x, int y, int width, int height, Uint32 color);
     static void DrawFillRect(int x, int y, int width, int height, Uint32 color);
-    static void DrawPolygon(int x, int y, const std::vector<Vec2>& vertices, Uint32 color);
-    static void DrawFillPolygon(int x, int y, const std::vector<Vec2>& vertices, Uint32 color);
-    static void DrawTexture(int x, int y, int width, int height, float rotation, SDL_Texture* texture);
+    static void DrawPolygon(int x, int y, const std::vector<Vec2> &vertices,
+                            Uint32 color);
+    static void DrawFillPolygon(int x, int y, const std::vector<Vec2> &vertices,
+                                Uint32 color);
+    static void DrawTexture(int x, int y, int width, int height, float rotation,
+                            SDL_Texture *texture);
 };
-

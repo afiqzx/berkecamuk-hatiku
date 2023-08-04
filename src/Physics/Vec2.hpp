@@ -40,4 +40,6 @@ struct Vec2 {
     Vec2 &operator-=(const Vec2 &v);
     Vec2 &operator*=(const float n);
     Vec2 &operator/=(const float n);
+
+    Vec2 operator/(const float m) const;
 };

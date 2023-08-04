@@ -1,11 +1,11 @@
 #include "Application.hpp"
 
-int main(int argc, const char ** cpargv) {
+int main(int argc, const char **cpargv) {
     Application app;
-    
+
     app.Setup();
 
-    while(app.IsRunning()) {
+    while (app.IsRunning()) {
         app.Input();
         app.Update();
         app.Render();
@@ -15,4 +15,3 @@ int main(int argc, const char ** cpargv) {
 
     return 0;
 }
-
