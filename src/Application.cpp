@@ -18,8 +18,6 @@ void Application::Setup() {
     m_timePreviousFrame = 0;
 
     m_particle = new Particle(50.0, 100.0, 10.0);
-    m_particle->m_velocity = Vec2(50.0, 55.0);
-    m_particle->m_acceleration = Vec2(0.0, 9.8 * PIXELS_PER_METER);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -55,7 +53,9 @@ void Application::Update() {
 
     if (m_particle != nullptr) {
         Vec2 wind = Vec2(2.0, 2.0);
+        Vec2 gravity = Vec2(0.0, 9.8 * PIXELS_PER_METER);
         m_particle->AddForce(wind);
+        m_particle->AddForce((gravity * m_particle->m_mass));
 
         m_particle->Integrate(deltaTime);
 

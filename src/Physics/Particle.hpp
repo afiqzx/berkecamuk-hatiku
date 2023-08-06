@@ -14,8 +14,7 @@ struct Particle {
     Particle(float x, float y, float mass);
     ~Particle() = default;
 
-    void Integrate(float delta_time);
-
     void AddForce(const Vec2 &force);
+    void Integrate(float delta_time);
     void ClearForces();
 };
