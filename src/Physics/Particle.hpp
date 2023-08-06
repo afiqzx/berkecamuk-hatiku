@@ -9,6 +9,7 @@ struct Particle {
     Vec2 m_sumForces;
 
     float m_mass;
+    float m_inv_mass;
     float m_radius;
 
     Particle(float x, float y, float mass);
