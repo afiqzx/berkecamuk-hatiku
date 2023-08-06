@@ -18,8 +18,8 @@ void Application::Setup() {
 
     m_timePreviousFrame = 0;
 
-    m_particles.push_back(Particle(50.0, 100.0, 10.0));
-    m_particles.push_back(Particle(100.0, 100.0, 10.0));
+    m_particles.push_back(Particle(50.0, 100.0, 1.0));
+    m_particles.push_back(Particle(100.0, 100.0, 0.1));
     m_particles.push_back(Particle(150.0, 100.0, 10.0));
 }
 
@@ -55,9 +55,11 @@ void Application::Update() {
     m_timePreviousFrame = SDL_GetTicks();
 
     for (Particle &particle : m_particles) {
-        Vec2 wind = Vec2(2.0, 2.0);
-        Vec2 gravity = Vec2(0.0, 9.8 * PIXELS_PER_METER);
+        Vec2 wind = Vec2(0.0, 0.0) * PIXELS_PER_METER;
+        Vec2 wind_resistance = Vec2(0.0, -0.9) * PIXELS_PER_METER;
+        Vec2 gravity = Vec2(0.0, 9.8) * PIXELS_PER_METER;
         particle.AddForce(wind);
+        particle.AddForce(wind_resistance);
         particle.AddForce((gravity * particle.m_mass));
 
         particle.Integrate(deltaTime);
