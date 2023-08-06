@@ -7,7 +7,7 @@ class Application {
   private:
     bool running = false;
     int m_timePreviousFrame;
-    Particle *m_particle;
+    std::vector<Particle> m_particles;
 
   public:
     Application() = default;

@@ -1,6 +1,7 @@
 #include "Application.hpp"
 #include "Constants.h"
 #include "Graphics.hpp"
+#include "Particle.hpp"
 #include <SDL_timer.h>
 #include <algorithm>
 #include <ostream>
@@ -17,7 +18,9 @@ void Application::Setup() {
 
     m_timePreviousFrame = 0;
 
-    m_particle = new Particle(50.0, 100.0, 10.0);
+    m_particles.push_back(Particle(50.0, 100.0, 10.0));
+    m_particles.push_back(Particle(100.0, 100.0, 10.0));
+    m_particles.push_back(Particle(150.0, 100.0, 10.0));
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,30 +54,28 @@ void Application::Update() {
 
     m_timePreviousFrame = SDL_GetTicks();
 
-    if (m_particle != nullptr) {
+    for (Particle &particle : m_particles) {
         Vec2 wind = Vec2(2.0, 2.0);
         Vec2 gravity = Vec2(0.0, 9.8 * PIXELS_PER_METER);
-        m_particle->AddForce(wind);
-        m_particle->AddForce((gravity * m_particle->m_mass));
+        particle.AddForce(wind);
+        particle.AddForce((gravity * particle.m_mass));
 
-        m_particle->Integrate(deltaTime);
+        particle.Integrate(deltaTime);
 
-        if (m_particle->m_position.m_x - m_particle->m_radius <= 0) {
-            m_particle->m_position.m_x = m_particle->m_radius;
-            m_particle->m_velocity.m_x *= -1.0;
-        } else if (m_particle->m_position.m_x + m_particle->m_radius >=
+        if (particle.m_position.m_x - particle.m_radius <= 0) {
+            particle.m_position.m_x = particle.m_radius;
+            particle.m_velocity.m_x *= -1.0;
+        } else if (particle.m_position.m_x + particle.m_radius >=
                    Graphics::Width()) {
-            m_particle->m_position.m_x =
-                Graphics::Width() - m_particle->m_radius;
-            m_particle->m_velocity.m_x *= -1.0;
-        } else if (m_particle->m_position.m_y - m_particle->m_radius <= 0) {
-            m_particle->m_position.m_y = m_particle->m_radius;
-            m_particle->m_velocity.m_y *= -1.0;
-        } else if (m_particle->m_position.m_y + m_particle->m_radius >=
+            particle.m_position.m_x = Graphics::Width() - particle.m_radius;
+            particle.m_velocity.m_x *= -1.0;
+        } else if (particle.m_position.m_y - particle.m_radius <= 0) {
+            particle.m_position.m_y = particle.m_radius;
+            particle.m_velocity.m_y *= -1.0;
+        } else if (particle.m_position.m_y + particle.m_radius >=
                    Graphics::Height()) {
-            m_particle->m_position.m_y =
-                Graphics::Height() - m_particle->m_radius;
-            m_particle->m_velocity.m_y *= -1.0;
+            particle.m_position.m_y = Graphics::Height() - particle.m_radius;
+            particle.m_velocity.m_y *= -1.0;
         }
     }
 }
@@ -84,8 +85,10 @@ void Application::Update() {
 ///////////////////////////////////////////////////////////////////////////////
 void Application::Render() {
     Graphics::ClearScreen(0xFF056263);
-    Graphics::DrawFillCircle(m_particle->m_position.m_x,
-                             m_particle->m_position.m_y, 4, 0xFFFFFFFF);
+    for (Particle &particle : m_particles) {
+        Graphics::DrawFillCircle(particle.m_position.m_x,
+                                 particle.m_position.m_y, 4, 0xFFFFFFFF);
+    }
     Graphics::RenderFrame();
 }
 
@@ -93,10 +96,10 @@ void Application::Render() {
 // Destroy function to delete objects and close the window
 ///////////////////////////////////////////////////////////////////////////////
 void Application::Destroy() {
-    if (m_particle != nullptr) {
-        delete m_particle;
-        m_particle = nullptr;
-    }
+    //if (m_particle != nullptr) {
+    //    delete m_particle;
+    //    m_particle = nullptr;
+    //}
 
     Graphics::CloseWindow();
 }
