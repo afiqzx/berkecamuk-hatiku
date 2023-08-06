@@ -9,6 +9,8 @@ class Application {
     int m_timePreviousFrame;
     std::vector<Particle> m_particles;
 
+    Vec2 pushForce;
+
   public:
     Application() = default;
     ~Application() = default;

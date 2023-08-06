@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "Graphics.hpp"
 #include "Particle.hpp"
+#include "SDL2/SDL_events.h"
 #include <SDL_timer.h>
 #include <algorithm>
 #include <ostream>
@@ -36,6 +37,24 @@ void Application::Input() {
         case SDL_KEYDOWN:
             if (event.key.keysym.sym == SDLK_ESCAPE)
                 running = false;
+            if (event.key.keysym.sym == SDLK_UP)
+                pushForce.m_y = -20 * PIXELS_PER_METER;
+            if (event.key.keysym.sym == SDLK_DOWN)
+                pushForce.m_y = 20 * PIXELS_PER_METER;
+            if (event.key.keysym.sym == SDLK_LEFT)
+                pushForce.m_x = -20 * PIXELS_PER_METER;
+            if (event.key.keysym.sym == SDLK_RIGHT)
+                pushForce.m_x = 20 * PIXELS_PER_METER;
+            break;
+        case SDL_KEYUP:
+            if (event.key.keysym.sym == SDLK_UP)
+                pushForce.m_y = 0;
+            if (event.key.keysym.sym == SDLK_DOWN)
+                pushForce.m_y = 0;
+            if (event.key.keysym.sym == SDLK_LEFT)
+                pushForce.m_x = 0;
+            if (event.key.keysym.sym == SDLK_RIGHT)
+                pushForce.m_x = 0;
             break;
         }
     }
@@ -61,6 +80,7 @@ void Application::Update() {
         particle.AddForce(wind);
         particle.AddForce(wind_resistance);
         particle.AddForce((gravity * particle.m_mass));
+        particle.AddForce(pushForce);
 
         particle.Integrate(deltaTime);
 
@@ -97,11 +117,4 @@ void Application::Render() {
 ///////////////////////////////////////////////////////////////////////////////
 // Destroy function to delete objects and close the window
 ///////////////////////////////////////////////////////////////////////////////
-void Application::Destroy() {
-    //if (m_particle != nullptr) {
-    //    delete m_particle;
-    //    m_particle = nullptr;
-    //}
-
-    Graphics::CloseWindow();
-}
+void Application::Destroy() { Graphics::CloseWindow(); }
