@@ -11,6 +11,8 @@ class Application {
 
     Vec2 pushForce;
 
+    SDL_Rect m_liquid;
+
   public:
     Application() = default;
     ~Application() = default;
