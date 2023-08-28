@@ -37,7 +37,7 @@ float Vec2::MagnitudeSquared() const { return m_x * m_x + m_y * m_y; }
 Vec2 &Vec2::Normalize() {
     float magnitude = Magnitude();
 
-    if (magnitude <= 0.0) {
+    if (magnitude > 0.0) {
         m_x /= magnitude;
         m_y /= magnitude;
     }
@@ -49,7 +49,7 @@ Vec2 Vec2::UnitVector() const {
     Vec2 ret(m_x, m_y);
     float magnitude = Magnitude();
 
-    if (magnitude <= 0.0) {
+    if (magnitude > 0.0) {
         ret.m_x /= magnitude;
         ret.m_y /= magnitude;
     }

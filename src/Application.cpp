@@ -88,18 +88,19 @@ void Application::Update() {
     m_timePreviousFrame = SDL_GetTicks();
 
     for (Particle &particle : m_particles) {
-        Vec2 gravity = Vec2(0.0, 9.8) * PIXELS_PER_METER;
-        particle.AddForce((gravity * particle.m_mass));
+        //Vec2 gravity = Vec2(0.0, 9.8) * PIXELS_PER_METER;
+        //particle.AddForce((gravity * particle.m_mass));
         particle.AddForce(pushForce);
 
         // Apply drag force if we are inside the liquid
-        if (particle.m_position.m_y >= m_liquid.y) {
-            Vec2 drag = Force::GenerateDragForce(particle, 0.001);
-            particle.AddForce(drag);
-            printf("drag: %f %f\n", drag.m_x, drag.m_y);
-        }
+        //if (particle.m_position.m_y >= m_liquid.y) {
+        //    Vec2 drag = Force::GenerateDragForce(particle, 0.001);
+        //    particle.AddForce(drag);
+        //}
 
-        printf("particle: %f %f\n", particle.m_velocity.m_x, particle.m_velocity.m_y);
+        Vec2 friction = Force::GenerateFrictionForce(particle, 10.0 * PIXELS_PER_METER);
+        //printf("%f %f\n", particle.m_position.m_x, particle.m_position.m_y);
+        particle.AddForce(friction);
 
         particle.Integrate(deltaTime);
 
