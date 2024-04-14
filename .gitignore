@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+Game
 
 # CMake stuffs
 .cmake
