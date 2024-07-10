@@ -10,4 +10,6 @@ struct Force {
                                            const Particle &particle_b, float G,
                                            float minDistance,
                                            float maxDistance);
+    static Vec2 GenerateSpringForce(const Particle &particle, Vec2 anchor,
+                                    float restLength, float k);
 };

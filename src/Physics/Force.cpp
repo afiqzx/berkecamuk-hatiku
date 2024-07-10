@@ -34,7 +34,8 @@ Vec2 Force::GenerateFrictionForce(const Particle &particle, float k) {
 }
 
 Vec2 Force::GenerateGravitationalForce(const Particle &particle_a,
-                                       const Particle &particle_b, float G, float minDistance, float maxDistance) {
+                                       const Particle &particle_b, float G,
+                                       float minDistance, float maxDistance) {
     Vec2 d = (particle_b.m_position - particle_a.m_position);
 
     float distanceSquared = d.MagnitudeSquared();
@@ -49,4 +50,22 @@ Vec2 Force::GenerateGravitationalForce(const Particle &particle_a,
     Vec2 attractionForce = attractionDirection * attractionMagnitude;
 
     return attractionForce;
+}
+
+Vec2 Force::GenerateSpringForce(const Particle &particle, Vec2 anchor,
+                                float restLength, float k) {
+
+    // Calculate the distance between particle and particle
+    Vec2 distance = particle.m_position - anchor;
+
+    // Calculate the displacement from the initial length
+    float displacement = distance.Magnitude() - restLength;
+
+    // Calculate the force and direction
+    Vec2 springDirection = distance.UnitVector();
+    float springMagnitude = -k * displacement;
+
+    Vec2 springForce = springDirection * springMagnitude;
+
+    return springForce;
 }
