@@ -1,4 +1,5 @@
 #include "Force.hpp"
+#include <algorithm>
 
 Vec2 Force::GenerateDragForce(const Particle &particle, float k) {
     Vec2 dragForce = Vec2(0, 0);
@@ -33,10 +34,13 @@ Vec2 Force::GenerateFrictionForce(const Particle &particle, float k) {
 }
 
 Vec2 Force::GenerateGravitationalForce(const Particle &particle_a,
-                                       const Particle &particle_b, float G) {
+                                       const Particle &particle_b, float G, float minDistance, float maxDistance) {
     Vec2 d = (particle_b.m_position - particle_a.m_position);
 
     float distanceSquared = d.MagnitudeSquared();
+
+    // Clamp the distance to allow gravity visual effect
+    distanceSquared = std::clamp(distanceSquared, minDistance, maxDistance);
 
     Vec2 attractionDirection = d.UnitVector();
     float attractionMagnitude =

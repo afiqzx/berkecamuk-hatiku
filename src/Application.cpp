@@ -5,10 +5,6 @@
 #include "Force.hpp"
 #include "SDL2/SDL_events.h"
 #include <SDL_timer.h>
-#include <algorithm>
-#include <ostream>
-
-#include <iostream>
 
 bool Application::IsRunning() { return running; }
 
@@ -20,13 +16,18 @@ void Application::Setup() {
 
     m_timePreviousFrame = 0;
 
-    m_particles.push_back(Particle(100.0, 100.0, 5.0));
-    m_particles.push_back(Particle(150.0, 100.0, 10.0));
+    Particle smallPlanet = Particle(200, 200, 1.0);
+    smallPlanet.m_radius = 6;
+    m_particles.push_back(smallPlanet);
 
-    m_liquid.x = 0;
-    m_liquid.y = Graphics::Height() / 2;
-    m_liquid.w = Graphics::Width();
-    m_liquid.h = Graphics::Height() / 2;
+    Particle bigPlanet = Particle(500, 500, 20.0);
+    bigPlanet.m_radius = 20;
+    m_particles.push_back(bigPlanet);
+
+    //m_liquid.x = 0;
+    //m_liquid.y = Graphics::Height() / 2;
+    //m_liquid.w = Graphics::Width();
+    //m_liquid.h = Graphics::Height() / 2;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -98,11 +99,9 @@ void Application::Update() {
         //    particle.AddForce(drag);
         //}
 
-        Vec2 friction = Force::GenerateFrictionForce(particle, 10.0 * PIXELS_PER_METER);
-        //printf("%f %f\n", particle.m_position.m_x, particle.m_position.m_y);
-        particle.AddForce(friction);
+        //Vec2 friction = Force::GenerateFrictionForce(particle, 10.0 * PIXELS_PER_METER);
+        //particle.AddForce(friction);
 
-        particle.Integrate(deltaTime);
 
         if (particle.m_position.m_x - particle.m_radius <= 0) {
             particle.m_position.m_x = particle.m_radius;
@@ -120,6 +119,15 @@ void Application::Update() {
             particle.m_velocity.m_y *= -1.0;
         }
     }
+
+    // Applying a gravititional force to two particles
+    Vec2 gravityAttraction = Force::GenerateGravitationalForce(m_particles[0], m_particles[1], 1000.0, 5.0, 100);
+    m_particles[0].AddForce(gravityAttraction);
+    m_particles[1].AddForce(-gravityAttraction);
+
+    for (Particle &particle: m_particles) {
+        particle.Integrate(deltaTime);
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -127,13 +135,14 @@ void Application::Update() {
 ///////////////////////////////////////////////////////////////////////////////
 void Application::Render() {
     Graphics::ClearScreen(0xFF056263);
-    Graphics::DrawFillRect(m_liquid.x + m_liquid.w / 2,
-                           m_liquid.y + m_liquid.h / 2, m_liquid.w, m_liquid.h,
-                           0xFF6E3713);
+
+    //Graphics::DrawFillRect(m_liquid.x + m_liquid.w / 2,
+    //                       m_liquid.y + m_liquid.h / 2, m_liquid.w, m_liquid.h,
+    //                       0xFF6E3713);
 
     for (Particle &particle : m_particles) {
         Graphics::DrawFillCircle(particle.m_position.m_x,
-                                 particle.m_position.m_y, 4, 0xFFFFFFFF);
+                                 particle.m_position.m_y, particle.m_radius, 0xFFFFFFFF);
     }
     Graphics::RenderFrame();
 }
