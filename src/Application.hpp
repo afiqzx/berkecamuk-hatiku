@@ -1,7 +1,7 @@
 #pragma once
 
-#include "./Graphics.hpp"
-#include "Particle.hpp"
+#include "Graphics.hpp"
+#include "Physics/Particle.hpp"
 
 class Application {
   private:

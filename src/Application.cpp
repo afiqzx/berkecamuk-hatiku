@@ -1,10 +1,10 @@
 #include "Application.hpp"
-#include "Constants.h"
-#include "Force.hpp"
+#include "Physics/Constants.h"
+#include "Physics/Force.hpp"
 #include "Graphics.hpp"
-#include "Particle.hpp"
+#include "Physics/Particle.hpp"
 #include "SDL2/SDL_events.h"
-#include <SDL_timer.h>
+#include "SDL_timer.h"
 
 bool Application::IsRunning() { return running; }
 
