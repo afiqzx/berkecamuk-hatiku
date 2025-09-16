@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Physics/Vec2.hpp"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL2_gfxPrimitives.h>
 #include <vector>
+#include "Physics/Vec2.hpp"
+#include "SDL.h"
+#include "SDL2/SDL2_gfxPrimitives.h"
 
 struct Graphics {
     static int windowWidth;
